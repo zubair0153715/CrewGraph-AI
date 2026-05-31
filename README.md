@@ -3,7 +3,7 @@
 A fully local, free, and production-ready **advanced** multi-agent AI system.  
 Combines **LangGraph + CrewAI + Pydantic Validation + Chroma Memory + Ollama LLMs** with cutting-edge features.
 
-🔒 **100% Local** | 💸 **Zero API Cost** | 🧠 **Smart Routing & Validation** | 🌐 **Advanced Web UI** | 📄 **Document Support**
+🔒 **100% Local** | 💸 **Zero API Cost** | 🧠 **Smart Routing & Validation** | 🌐 **Advanced Web UI** | 🔌 **Connectors** | 🔄 **Workflows**
 
 ## 🎯 What Problem Does It Solve?
 
@@ -11,6 +11,7 @@ Combines **LangGraph + CrewAI + Pydantic Validation + Chroma Memory + Ollama LLM
 - 💸 **Cloud Costs & Privacy:** Runs entirely on your machine. No API keys, no data leaks, no monthly bills.
 - 🤷 **Unreliable Outputs:** Built-in state management, Pydantic schema validation, and memory prevent hallucinations & context loss.
 - ⚙️ **Complex Setup:** Clone → 1 command → browser opens → start working. Zero configuration headache.
+- 🔌 **Manual Repetition:** Connect your accounts (GitHub, Notion, etc.) and automate workflows end-to-end.
 
 ## 🏗️ Architecture
 
@@ -49,7 +50,20 @@ Streamed Response → UI
 - 🌡️ **Temperature Control:** Adjust creativity vs accuracy
 - 📊 **Session Statistics:** Track messages, documents, and usage metrics
 - 🤝 **Human-in-the-Loop:** Optional approval workflow for critical tasks
-- 🎨 **Advanced Web UI:** Modern Gradio interface with file upload, stats, and controls
+
+### 🔌 Connectors & Integrations
+- **GitHub:** Read issues, create comments, automate repo management
+- **Notion:** Query databases, publish pages, automate documentation
+- **Web Search:** DuckDuckGo integration for real-time research
+- **Local File System:** Secure read/write to workspace folder
+- **More Coming:** Slack, Google Drive, Discord (PRs welcome!)
+
+### 🔄 Workflow Automation
+- **Pre-built Templates:** Research & Publish, GitHub Automation, File Processing
+- **Custom Workflows:** Build your own automation with JSON-based workflow builder
+- **Conditional Branching:** If/else logic based on AI analysis
+- **Visual Monitoring:** Real-time execution logs and status tracking
+- **One-Click Tasks:** "Research & Save", "GitHub Auto-Response", "Notion Publishing"
 
 ### Specialized Agents
 - 🔍 **Researcher:** Expert information gathering and analysis
