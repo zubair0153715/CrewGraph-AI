@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Environment & Secrets
+.env
+.env.*
+*.key
+
+# Local DB & Cache
+chroma_db/
+.gradio/
+.cache/
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Logs & Temp
+*.log
+tmp/
+temp/
