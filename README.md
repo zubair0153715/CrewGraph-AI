@@ -67,6 +67,21 @@ Streamed Response → UI
 
 ### Setup
 
+#### Option 1: Docker (Easiest - Recommended!)
+```bash
+# Clone & enter
+git clone https://github.com/YOUR_USERNAME/CrewGraph-AI.git 
+cd CrewGraph-AI
+
+# One command to run everything!
+./docker-run.sh
+
+# OR manually with docker-compose
+docker-compose up -d
+```
+🌐 Open `http://localhost:7860` in your browser. Done!
+
+#### Option 2: Local Python Installation
 ```bash
 # 1. Clone & enter
 git clone https://github.com/YOUR_USERNAME/CrewGraph-AI.git 
@@ -87,8 +102,9 @@ python main.py
 # OR Launch (Advanced Mode with all features)
 python main_advanced.py
 ```
-
 🌐 Open `http://localhost:7860` in your browser. Done!
+
+> 📖 **Detailed installation guide:** See [INSTALL_WEB_APP.md](INSTALL_WEB_APP.md) for complete instructions including Windows, macOS, and Linux setup.
 
 ## 📁 Project Structure
 
@@ -102,7 +118,11 @@ CrewGraph-AI/
 ├── memory.py            # ChromaDB + Ollama embeddings
 ├── config.py            # Global settings & feature flags
 ├── requirements.txt     # Python dependencies
-├── run.sh               # 1-click setup & launch
+├── run.sh               # 1-click setup & launch (local)
+├── docker-run.sh        # 1-click Docker deployment
+├── Dockerfile           # Docker container configuration
+├── docker-compose.yml   # Docker Compose multi-container setup
+├── INSTALL_WEB_APP.md   # Detailed installation guide
 ├── README.md            # This file
 └── .gitignore
 ```
@@ -221,9 +241,11 @@ PRs welcome! Please open an issue first for major changes. Follow standard Pytho
 
 ## 📈 Roadmap
 
+- [x] Docker support & containerization
+- [x] One-click deployment scripts
+- [x] Comprehensive installation guide
 - [ ] Real-time streaming responses
 - [ ] REST API endpoints
-- [ ] Docker support
 - [ ] Multi-modal inputs (images)
 - [ ] Custom agent creation UI
 - [ ] Conversation export
