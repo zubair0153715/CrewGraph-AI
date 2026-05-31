@@ -22,3 +22,6 @@ PORT = int(os.getenv("PORT", "7860"))
 ENABLE_ROUTER = os.getenv("ENABLE_ROUTER", "true").lower() == "true"
 ENABLE_VALIDATION = os.getenv("ENABLE_VALIDATION", "true").lower() == "true"
 ENABLE_MEMORY = os.getenv("ENABLE_MEMORY", "true").lower() == "true"
+ENABLE_HITL = os.getenv("ENABLE_HITL", "false").lower() == "true"  # Human-in-the-loop
+ENABLE_PARALLEL = os.getenv("ENABLE_PARALLEL", "true").lower() == "true"  # Parallel execution
+ENABLE_REFLECTION = os.getenv("ENABLE_REFLECTION", "true").lower() == "true"  # Agent reflection
