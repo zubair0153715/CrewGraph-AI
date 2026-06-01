@@ -1,37 +1,43 @@
-# Python
+```
+# Dependencies
+node_modules/
+.venv/
+venv/
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg
-*.egg-info/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Build artifacts
 dist/
 build/
-*.whl
+*.egg-info/
 
-# Virtual Environments
-venv/
-env/
-.venv/
-
-# Environment & Secrets
+# Environment variables
 .env
+.env.local
 .env.*
-*.key
 
-# Local DB & Cache
-chroma_db/
-.gradio/
-.cache/
-
-# IDE & OS
+# IDE specific
 .vscode/
 .idea/
 *.swp
+*.swo
+*.tmp
+
+# OS specific
 .DS_Store
 Thumbs.db
 
-# Logs & Temp
+# Logs
 *.log
-tmp/
-temp/
+
+# Coverage reports
+coverage/
+htmlcov/
+*.coverage
+
+# Docker
+.dockerenv
+```
