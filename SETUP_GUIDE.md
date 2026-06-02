@@ -1,281 +1,200 @@
-# CrewGraph-AI - Complete Setup Guide
+# CrewGraph Sales OS - Setup Guide (FREE)
 
-## 🎯 Overview
-CrewGraph-AI combines **LangGraph + CrewAI + Pydantic Validation + Chroma Memory + Ollama LLMs** into one seamless, 100% local multi-agent AI system.
+## 🚀 Quick Start - $0 Cost Setup
 
-## ✨ Key Features
+### Step 1: Get FREE API Keys
 
-### 1. **Smart Routing System**
-- Automatically classifies queries as simple or complex
-- Simple queries → Direct LLM response (fast)
-- Complex queries → Multi-agent CrewAI workflow (thorough)
+#### 1. Groq API (Free LLM)
+1. Visit: https://console.groq.com
+2. Sign up with Google/GitHub
+3. Create API Key
+4. Copy the key
 
-### 2. **Multi-Agent Coordination (CrewAI)**
-- **Researcher Agent**: Finds and analyzes information
-- **Writer Agent**: Synthesizes findings into clear responses
-- Tasks are delegated based on query complexity
+#### 2. Neon Database (Free PostgreSQL)
+1. Visit: https://neon.tech
+2. Sign up
+3. Create new project
+4. Copy connection string
 
-### 3. **Persistent Memory (ChromaDB)**
-- All conversations stored locally
-- RAG-powered context retrieval
-- Session-based memory management
-- Ollama embeddings for semantic search
-
-### 4. **Output Validation (Pydantic)**
-- Structured response schemas
-- Confidence scoring
-- Error prevention and formatting guarantees
-
-### 5. **Web UI (Gradio)**
-- Clean, responsive chat interface
-- Example queries included
-- Settings panel with system info
-- One-click chat clearing
-
-## 📁 File Structure
-
-```
-CrewGraph-AI/
-├── main.py              # FastAPI + Gradio Web UI
-├── langgraph_setup.py   # StateGraph, Routing, Validation nodes
-├── crewai_node.py       # CrewAI multi-agent execution node
-├── memory.py            # ChromaDB + Ollama embeddings
-├── config.py            # Configuration & environment variables
-├── requirements.txt     # Python dependencies
-├── run.sh               # 1-click setup & launch script
-├── README.md            # Project documentation
-├── LICENSE              # MIT License
-└── .gitignore           # Git ignore rules
-```
-
-## 🚀 Installation Methods
-
-### Method 1: One-Click Setup (Recommended)
-
-```bash
-chmod +x run.sh
-./run.sh
-```
-
-This script will:
-1. Check Python 3.10+ installation
-2. Verify Ollama is installed
-3. Create virtual environment
-4. Install all dependencies
-5. Pull required models (qwen2.5:7b, nomic-embed-text)
-6. Launch the web UI
-
-### Method 2: Manual Setup
-
-```bash
-# 1. Clone repository
-git clone https://github.com/YOUR_USERNAME/CrewGraph-AI.git
-cd CrewGraph-AI
-
-# 2. Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-
-# 4. Install and start Ollama
-# Visit https://ollama.com to download
-# Then run: ollama serve
-
-# 5. Pull models
-ollama pull qwen2.5:7b
-ollama pull nomic-embed-text
-
-# 6. Launch application
-python main.py
-```
-
-## 🌐 Usage
-
-Once running, open your browser to: **http://localhost:7860**
-
-### Example Queries
-
-**Simple Queries** (Fast, direct response):
-- "Hello! What can you do?"
-- "What is Python?"
-- "Explain gravity briefly"
-
-**Complex Queries** (Triggers multi-agent research):
-- "Research and analyze the impact of AI on healthcare"
-- "Compare Python vs JavaScript for web development"
-- "Analyze the pros and cons of remote work"
-
-## ⚙️ Configuration
-
-Edit `config.py` or set environment variables:
-
-```python
-# LLM Settings
-LLM_MODEL = "qwen2.5:7b"          # Change to any Ollama model
-EMBEDDING_MODEL = "nomic-embed-text"
-OLLAMA_BASE_URL = "http://localhost:11434"
-
-# Memory Settings
-CHROMA_PERSIST_DIR = "./chroma_db"
-
-# Server Settings
-HOST = "0.0.0.0"
-PORT = "7860"
-
-# Feature Flags
-ENABLE_ROUTER = True      # Enable smart routing
-ENABLE_VALIDATION = True  # Enable Pydantic validation
-ENABLE_MEMORY = True      # Enable ChromaDB memory
-```
-
-## 🔧 Customization
-
-### Add New Agents
-
-Edit `crewai_node.py`:
-
-```python
-def create_custom_agent():
-    return Agent(
-        role="Your Custom Role",
-        goal="What this agent does",
-        backstory="Agent's background",
-        verbose=True,
-        llm=f"ollama/{LLM_MODEL}"
-    )
-```
-
-### Modify Routing Logic
-
-Edit `langgraph_setup.py` → `router_node()`:
-
-```python
-def router_node(state: AgentState):
-    query = state.get("query", "").lower()
-    
-    # Add your custom keywords
-    complex_keywords = ["research", "analyze", "compare"]
-    
-    if any(kw in query for kw in complex_keywords):
-        return "complex"
-    return "simple"
-```
-
-### Change LLM Model
-
-```bash
-# Pull a different model
-ollama pull llama3.2:3b
-ollama pull mistral:7b
-
-# Update config.py
-LLM_MODEL = "llama3.2:3b"
-```
-
-## 🛠️ Troubleshooting
-
-### Ollama Not Running
-```bash
-# Start Ollama service
-ollama serve
-```
-
-### Models Not Found
-```bash
-# Re-pull models
-ollama pull qwen2.5:7b
-ollama pull nomic-embed-text
-```
-
-### Port Already in Use
-```python
-# Edit config.py
-PORT = "7861"  # Change to different port
-```
-
-### Memory Issues
-```bash
-# Clear ChromaDB
-rm -rf chroma_db/
-
-# Use smaller model
-ollama pull qwen2.5:3b
-```
-
-### Dependency Conflicts
-```bash
-# Recreate virtual environment
-rm -rf venv/
-python -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-## 📊 Architecture Flow
-
-```
-User Query (Gradio UI)
-        ↓
-Router Node → Classifies: Simple vs Complex
-        ↓
-Memory Retrieval → Fetches relevant context from ChromaDB
-        ↓
-   ┌─────────────┬─────────────┐
-   ↓             ↓             ↓
-Simple        Complex       Research
-(LLM)        (CrewAI)      (Multi-Agent)
-   ↓             ↓             ↓
-   └─────────────┴─────────────┘
-        ↓
-Validation Node → Pydantic schema check
-        ↓
-Memory Storage → Save conversation
-        ↓
-Response to User
-```
-
-## 🔒 Privacy & Security
-
-- ✅ 100% local execution
-- ✅ No API keys required
-- ✅ No data sent to cloud
-- ✅ All memories stored locally
-- ✅ Open source codebase
-
-## 📈 Performance Tips
-
-1. **Use SSD storage** for faster ChromaDB queries
-2. **16GB+ RAM recommended** for smooth multi-agent workflows
-3. **Close other applications** when running complex tasks
-4. **Use smaller models** (e.g., `qwen2.5:3b`) on limited hardware
-5. **Clear old memories** periodically: `rm -rf chroma_db/`
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/new-feature`
-3. Commit changes: `git commit -m 'Add new feature'`
-4. Push to branch: `git push origin feature/new-feature`
-5. Open Pull Request
-
-## 📜 License
-
-MIT License - See [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **LangGraph** - Stateful orchestration
-- **CrewAI** - Multi-agent framework
-- **Ollama** - Local LLM runtime
-- **ChromaDB** - Vector database
-- **Gradio** - Web UI framework
-- **Pydantic** - Data validation
+#### 3. Qdrant Cloud (Free Vector DB - Optional for MVP)
+1. Visit: https://cloud.qdrant.io
+2. Sign up
+3. Create free cluster (1GB free)
+4. Copy URL and API key
 
 ---
 
-**Made with ❤️ for the local AI community**
+### Step 2: Clone & Setup Project
 
-For issues and questions, please open a GitHub issue.
+```bash
+# Navigate to project
+cd /workspace/crewgraph-sales-os
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r backend/requirements.txt
+
+# Copy environment file
+cp .env.example .env
+```
+
+---
+
+### Step 3: Configure Environment
+
+Edit `.env` file with your keys:
+
+```bash
+# Only GROQ_API_KEY is required for MVP!
+GROQ_API_KEY=gsk_your_actual_key_here
+
+# Optional for later:
+DATABASE_URL=postgresql://...
+QDRANT_URL=...
+```
+
+---
+
+### Step 4: Run Backend
+
+```bash
+# Start FastAPI server
+cd backend
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Visit: http://localhost:8000/docs for API documentation
+
+---
+
+### Step 5: Test Agents
+
+```bash
+# Test Lead Finder Agent
+python backend/app/agents/lead_finder.py
+
+# Test Email Agent
+python backend/app/agents/cold_email.py
+
+# Test Orchestrator
+python backend/app/orchestrator/brain.py
+```
+
+---
+
+## 🎯 MVP Features (Working Now)
+
+### ✅ Available Endpoints:
+
+1. **GET /** - Health check
+2. **POST /api/find-leads** - Find leads by niche
+3. **POST /api/generate-emails** - Generate cold emails
+4. **POST /api/run-campaign** - Full campaign automation
+5. **GET /api/agents/status** - Check agent status
+
+### Example API Calls:
+
+#### Find Leads:
+```bash
+curl -X POST http://localhost:8000/api/find-leads \
+  -H "Content-Type: application/json" \
+  -d '{"niche": "SaaS", "country": "US", "count": 5}'
+```
+
+#### Run Campaign:
+```bash
+curl -X POST http://localhost:8000/api/run-campaign \
+  -H "Content-Type: application/json" \
+  -d '{"niche": "E-commerce", "country": "UK"}'
+```
+
+---
+
+## 💰 Monetization Options
+
+### Option 1: Freelancing (Fast Money)
+- Offer on Fiverr/Upwork
+- Price: $100-$1000 per setup
+- Service: "AI Lead Generation System"
+
+### Option 2: Agency Model
+- Monthly clients
+- Price: $500-$5000/month
+- Service: Done-for-you lead gen
+
+### Option 3: SaaS Product
+- Subscription model
+- Price: $19/$49/$99 per month
+- Platform: Self-serve dashboard
+
+---
+
+## 📁 Project Structure
+
+```
+crewgraph-sales-os/
+├── backend/
+│   ├── app/
+│   │   ├── main.py              # FastAPI app
+│   │   ├── agents/
+│   │   │   ├── lead_finder.py   # Lead generation
+│   │   │   ├── research.py      # Company research
+│   │   │   └── cold_email.py    # Email generation
+│   │   └── orchestrator/
+│   │       └── brain.py         # Workflow orchestration
+│   └── requirements.txt
+├── frontend/                    # Next.js (to be built)
+├── data/                        # Local storage
+├── .env                         # Your API keys
+├── .env.example                # Template
+└── README.md                   # This guide
+```
+
+---
+
+## 🔧 Troubleshooting
+
+### Issue: Groq API Error
+- Check API key is correct
+- Ensure no extra spaces in .env
+- Verify internet connection
+
+### Issue: Module Not Found
+```bash
+pip install -r backend/requirements.txt --upgrade
+```
+
+### Issue: Port Already in Use
+```bash
+# Change port in main.py or kill process
+lsof -ti:8000 | xargs kill
+```
+
+---
+
+## 🎓 Next Steps
+
+1. ✅ Test all agents locally
+2. 📝 Build simple frontend (Next.js)
+3. 🗄️ Add database integration
+4. 🌐 Deploy to free hosting (Render/Vercel)
+5. 💼 Get first client on Fiverr
+
+---
+
+## 🆘 Need Help?
+
+Check these resources:
+- Groq Docs: https://console.groq.com/docs
+- CrewAI Docs: https://docs.crewai.com
+- FastAPI Docs: http://localhost:8000/docs
+
+**Remember**: Perfect system mat banao — working MVP banao! 🚀
